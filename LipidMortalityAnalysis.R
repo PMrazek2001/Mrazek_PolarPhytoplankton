@@ -27,12 +27,16 @@ BDFull$Strain <- as.factor(BDFull$Strain)
 ##And I need to subset to only Dark treatment data
 BDDark <- subset(BDFull, Light_treatment == "Dark")
 
-##OK, so now let me  create the variables that I will need:
+
 
 #I already have lipid per size
 #fold change (=prop retained)
 #mean Bodipy in the light
 #Bodipy scaled
+
+
+
+####Step 3: Testing my Hypotheses H0 - H3
 
 ###### H0 - would be that only size perfectly explains variation in the mortality data, 
 #so let's do that:
