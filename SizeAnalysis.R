@@ -72,4 +72,15 @@ ggplot(BDFull, aes(x = treatment_combo, y = Size_Median, fill = Strain)) +
 
 
 
+#### Step 4: Investigating Pure lipid loss across both light treatments:
+
+HAllAnova <- aov(lipid_per_size ~ Light_treatment*Temp, data = BDFull)
+summary(HAllAnova)
+anova(HAllAnova)
+
+
+HAllLM <- lm(lipid_per_size ~ Light_treatment*Temp, data = BDFull)
+summary(HAllLM)
+anova(HAllLM)
+
 
