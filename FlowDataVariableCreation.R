@@ -133,13 +133,49 @@ ggplot(FlowDataBD, aes(x = treatment, y = Bodipy_scaled)) +
 
 
 
+####Step 6: Now I want to add in my growth rate and prop. dead variables from datasets EBData5 and GRData 5:
+
+## So first I need to load in both my datasets
+
+EBData5 <- read_csv("data/EBData5.csv")
+
+GRData5 <- read.csv("data/GRData5.csv")
+
+BDSizeData <- read.csv("data/BDSizeData.csv")
 
 
-####Step 6: I need to save the BDlight_ref dataset as a csv, to make loading it and using it for analyses simpler
+## Ok, now I isolate the 5th timepoint of the EB data and GR data
 
-#write.csv(BDlight_ref, "E:/BDlight_ref2.csv", row.names = FALSE)
+EBtp5 <- EBData5 %>% 
+  filter(timepoint == 5)
 
 
+GRtp5 <- GRData5 %>%
+  filter(timepoint == 5)
+
+#beautiful
+
+### Now I need to join the grwoth rate and mortality variables onto the BDlight_ref dataset by sample ID
+
+BDFull <- BDSizeData %>%
+  left_join(EBtp5 %>% select(ID, prop_dead), by = "ID")
+
+#and
+
+BDFull <- BDFull %>%
+  left_join(GRtp5 %>% select(ID, growthrateB), by = "ID")
+
+
+##I should check if the left-join worked properly
+
+head(BDFull)
+
+
+
+
+####Step 7: Finally I need to save the BDlight_ref dataset as a csv, to make loading it and using it for analyses simpler
+
+write.csv(BDFull, "E:/BDGM_Full.csv", row.names = FALSE)
 
 
 
